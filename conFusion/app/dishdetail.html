@@ -57,11 +57,44 @@
             </div>
             <div class="col-xs-9 col-xs-offset-1" ng-controller="DishCommentController">
                 <ul class="list-unstyled">
-                    <p>Task 3: Here you include the code to show the live preview of the comment</p>
-                    <p>The comment should be shown only when the form contains valid information and is not pristine</p>
+                    <blockquote ng-show="commentForm.$valid && !commentForm.$pristine">
+                <p>{{prevComment.rating}} Stars</p>
+                <p>{{prevComment.comment}}</p>
+                <footer>{{prevComment.author}}</footer>
+                </blockquote>
                 </ul>
                 <form class="form-horizontal" name="commentForm" ng-submit="submitComment()" novalidate>
-                    <p>Task 1: Design the form to submit the comments</p>
+                    <div class="form-group" ng-class="{ 'has-error' : commentForm.name.$error.required && !commentForm.name.$pristine }">
+                        <label for="name" class="col-sm-2 control-label">Your Name</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Your Name" ng-model="prevComment.author" required>
+                            <span ng-show="commentForm.name.$error.required && !commentForm.name.$pristine" class="help-block">Your name is required.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="stars" class="col-sm-2 control-label">Number of Stars</label>
+                        <div class="col-sm-10 form-group">
+                            <input class="radio-inline" type="radio" name="stars" ng-model="prevComment.rating" value="1">1
+                            <input class="radio-inline" type="radio" name="stars" ng-model="prevComment.rating" value="2">2
+                            <input class="radio-inline" type="radio" name="stars" ng-model="prevComment.rating" value="3">3
+                            <input class="radio-inline" type="radio" name="stars" ng-model="prevComment.rating" value="4">4
+                            <input class="radio-inline" type="radio" name="stars" ng-model="prevComment.rating" value="5" checked>5
+                            <span></span>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error' : commentForm.comments.$error.required && !commentForm.comments.$pristine }">
+                        <label for="comment" class="col-sm-2 control-label">Your Comments</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" name="comments" id="comments" ng-model="prevComment.comment" ng-required="true"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-primary" ng-disabled="commentForm.$invalid" ng-click="submitComment">Submit Comment</button>
+                        </div>
+                    </div>
+                    
+                    
                     <p>Task 2: You need to validate that the user name and comments are entered</p>
                 </form>
             </div>
