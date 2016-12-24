@@ -75,9 +75,9 @@ angular.module('confusionApp')
          };
     }])
 
-    .controller('DishDetailController', ['$scope', '$routeParams', 'menuFactory', function ($scope, $routeParams, menuFactory) {
+    .controller('DishDetailController', ['$scope', '$stateParams', 'menuFactory', function ($scope, $stateParams, menuFactory) {
 
-        var dish = menuFactory.getDish(parseInt($routeParams.id,10));
+        var dish = menuFactory.getDish(parseInt($stateParams.id,10));
         $scope.dish = dish;
         $scope.sortBy = "";
 
@@ -98,7 +98,7 @@ angular.module('confusionApp')
                 //Step 2: This is how you record the date
                 $scope.prevComment.date = new Date().toISOString();
                 
-                var comment = new Object;
+                var comment = new Object();
                 comment.rating = parseInt($scope.prevComment.rating);
                 comment.comment = $scope.prevComment.comment;
                 comment.author = $scope.prevComment.author;
